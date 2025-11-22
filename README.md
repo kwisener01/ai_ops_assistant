@@ -21,7 +21,7 @@ The **AI Operations Assistant** is a comprehensive business management system de
 
 ## 🌐 Live Demo
 
-**Access the web dashboard:** (Coming soon - deploy to https://work-assist.streamlit.app/)
+**Access the web dashboard:** https://fynix-ops-dashboard.streamlit.app/ (deploy following instructions below)
 
 **Run locally:**
 ```bash
@@ -316,12 +316,14 @@ The **Streamlit web dashboard** (`streamlit_app.py`) provides a complete busines
 2. **Click** "New app"
 3. **Configure:**
    - Repository: `kwisener01/ai_ops_assistant`
-   - Branch: `main` (or your branch)
+   - Branch: `claude/fynix-systems-setup-016xtLGepeMrVxHaQh935vxn` (or `main` after merging)
    - Main file: `streamlit_app.py`
-   - App URL: `work-assist` (or custom name)
+   - App URL: `fynix-ops-dashboard` (or your custom name)
 4. **Click** "Deploy!"
 
-Your app will be live at: **https://work-assist.streamlit.app/**
+Your app will be live at: **https://fynix-ops-dashboard.streamlit.app/**
+
+> **Note:** Choose a unique URL name if `fynix-ops-dashboard` is taken. This keeps your business ops dashboard separate from other apps.
 
 ### Detailed Instructions
 

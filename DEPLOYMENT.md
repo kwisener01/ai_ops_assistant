@@ -24,9 +24,9 @@
 3. **Deploy New App**
    - Click "New app"
    - Select your repository: `kwisener01/ai_ops_assistant`
-   - Branch: `main` (or your deployment branch)
+   - Branch: `claude/fynix-systems-setup-016xtLGepeMrVxHaQh935vxn` (or `main` after merging)
    - Main file path: `streamlit_app.py`
-   - App URL: Choose your custom URL (e.g., `work-assist`)
+   - App URL: Choose your custom URL (e.g., `fynix-ops-dashboard`, `fynix-business-ops`, or `fynix-kpi-dashboard`)
 
 4. **Configure Advanced Settings** (Optional)
    - Python version: 3.11
@@ -34,8 +34,15 @@
 
 5. **Deploy**
    - Click "Deploy!"
-   - Wait for the app to build and deploy
-   - Your app will be available at: `https://work-assist.streamlit.app/`
+   - Wait for the app to build and deploy (usually 2-5 minutes)
+   - Your app will be available at: `https://[your-chosen-url].streamlit.app/`
+
+**Suggested URLs:**
+- `fynix-ops-dashboard.streamlit.app` - Business operations dashboard
+- `fynix-business-ops.streamlit.app` - Alternative naming
+- `fynix-kpi-tracker.streamlit.app` - KPI-focused naming
+
+> **Note:** The URL `work-assist.streamlit.app` is already in use for a different application. Choose a unique name for this business operations dashboard.
 
 ### Local Testing
 
