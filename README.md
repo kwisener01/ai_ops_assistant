@@ -11,12 +11,22 @@
 
 The **AI Operations Assistant** is a comprehensive business management system designed specifically for **Fynix Systems** (https://fynix.systems/), an AI automation company. This system provides:
 
+- **🌐 Web Dashboard** - Interactive Streamlit web interface with real-time visualization
 - **📊 KPI Tracking & Monitoring** - Real-time tracking of business metrics across revenue, clients, projects, and operations
 - **📋 Standard Operating Procedures (SOPs)** - Predefined workflows for sales, delivery, support, and onboarding
 - **🔄 Workflow Management** - Active workflow tracking with dependency management and progress monitoring
 - **📈 Performance Analytics** - Comprehensive reporting and trend analysis
 - **🎯 Issue Tracking** - Root cause analysis using 5-Whys and Ishikawa diagrams
 - **📑 Automated Reporting** - PDF report generation with insights and recommendations
+
+## 🌐 Live Demo
+
+**Access the web dashboard:** (Coming soon - deploy to https://work-assist.streamlit.app/)
+
+**Run locally:**
+```bash
+streamlit run streamlit_app.py
+```
 
 ---
 
@@ -102,6 +112,15 @@ cd ai_ops_assistant
 pip install -r requirements.txt
 ```
 
+### Launch Web Dashboard
+
+```bash
+# Start the Streamlit web interface
+streamlit run streamlit_app.py
+```
+
+The dashboard will open in your browser at `http://localhost:8501`
+
 ### Required Packages
 
 ```
@@ -112,13 +131,29 @@ fpdf>=1.7.2
 pdfplumber>=0.9.0
 python-pptx>=0.6.21
 openpyxl>=3.1.0
+streamlit>=1.28.0
+plotly>=5.17.0
 ```
 
 ---
 
 ## Quick Start
 
-### 1. KPI Tracking
+### 0. Web Dashboard (Recommended)
+
+```bash
+# Launch the interactive web interface
+streamlit run streamlit_app.py
+```
+
+The web dashboard provides:
+- 📊 Interactive KPI dashboards
+- 🔄 Workflow management interface
+- 📈 Real-time charts and analytics
+- ➕ Easy data entry forms
+- 📥 Data export capabilities
+
+### 1. KPI Tracking (Python API)
 
 ```python
 from business_kpis import KPIDashboard, RevenueMetrics, ClientMetrics
@@ -322,11 +357,17 @@ See **[BUSINESS_PROCEDURES.md](BUSINESS_PROCEDURES.md)** for comprehensive docum
 ```
 ai_ops_assistant/
 │
-├── ai_ops_assistant.py       # Legacy issue tracking module
+├── streamlit_app.py           # 🌐 Web dashboard (main entry point)
 ├── business_kpis.py           # KPI tracking system
 ├── business_operations.py     # SOP and workflow management
+├── ai_ops_assistant.py        # Legacy issue tracking module
+├── demo_business_system.py    # CLI demo script
 ├── BUSINESS_PROCEDURES.md     # Comprehensive procedures doc
+├── DEPLOYMENT.md              # Deployment guide for Streamlit Cloud
 ├── requirements.txt           # Python dependencies
+├── .streamlit/                # Streamlit configuration
+│   ├── config.toml
+│   └── secrets.toml
 └── README.md                  # This file
 ```
 
@@ -506,12 +547,14 @@ This project is proprietary software of Fynix Systems.
 - ✅ SOP and workflow management
 - ✅ Business procedures documentation
 - ✅ Basic reporting
+- ✅ **Streamlit web dashboard**
+- ✅ **Interactive data visualization**
 
 ### Phase 2 (Next)
-- ⬜ Web dashboard (Streamlit/Flask)
 - ⬜ Automated alerts and notifications
 - ⬜ Integration with HubSpot/Zendesk
 - ⬜ Advanced analytics and predictions
+- ⬜ Data persistence (database integration)
 
 ### Phase 3 (Future)
 - ⬜ Mobile app
