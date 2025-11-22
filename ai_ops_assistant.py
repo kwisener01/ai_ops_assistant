@@ -2,17 +2,19 @@
 ai_ops_assistant.py
 =====================
 
-This module implements a prototype AI‑powered operations assistant for a
-manufacturing environment. It is designed to help an assistant manager
-in a transmission assembly plant track quality and downtime issues,
-conduct root cause analysis, and generate reports.  The goal of the
-assistant is to reduce busywork by automating data collection,
-analysis, and reporting so that more time can be spent on high leverage
-activities and strategic thinking.  The design borrows from several
-well‑known problem solving frameworks including the Five Whys,
-Fishbone (Ishikawa) diagrams, first principles thinking and Dan
-Sullivan’s productivity frameworks (Who Not How, The Gap and The Gain,
-10× is Easier than 2×, and the Free Zone Frontier).
+Fynix Systems AI-Powered Operations Assistant
+----------------------------------------------
+
+This module implements an AI‑powered operations assistant for Fynix Systems
+manufacturing operations. It is designed to help operations managers and
+production teams track quality and downtime issues, conduct root cause
+analysis, and generate comprehensive reports.  The goal of the assistant
+is to reduce busywork by automating data collection, analysis, and reporting
+so that more time can be spent on high leverage activities and strategic
+thinking.  The design borrows from several well‑known problem solving
+frameworks including the Five Whys, Fishbone (Ishikawa) diagrams, first
+principles thinking and Dan Sullivan's productivity frameworks (Who Not How,
+The Gap and The Gain, 10× is Easier than 2×, and the Free Zone Frontier).
 
 Key Features
 ------------
@@ -63,16 +65,16 @@ services.  It can be integrated into a Streamlit or Flask web
 application, scheduled in a cron job for daily/weekly summaries, or
 invoked from a Jupyter notebook for exploratory analysis.
 
-Example usage::
+Example usage for Fynix Systems::
 
     from ai_ops_assistant import OpsAssistant
     assistant = OpsAssistant()
-    assistant.load_data("issues.xlsx")
-    assistant.add_issue("Gearbox vibration detected", category="Machine")
-    assistant.ask_why("Gearbox vibration detected", "Why did the vibration occur?", "The bearings were worn")
-    assistant.ask_why("Gearbox vibration detected", "Why were the bearings worn?", "Lack of lubrication")
-    assistant.finalize_root_cause("Gearbox vibration detected")
-    assistant.generate_report(output_path="weekly_report.pdf")
+    assistant.load_data("fynix_issues.xlsx")
+    issue_id = assistant.add_issue("Hydraulic pressure fluctuation in Station 3", category="Machine")
+    assistant.ask_why(issue_id, "Why is pressure fluctuating?", "Worn seal in valve assembly")
+    assistant.ask_why(issue_id, "Why is the seal worn?", "Exceeded service interval")
+    assistant.finalize_root_cause(issue_id)
+    assistant.generate_report(output_path="fynix_weekly_report.pdf")
 
 """
 
@@ -154,14 +156,17 @@ class Issue:
 
 
 class OpsAssistant:
-    """Core class to manage manufacturing issues and provide analysis.
+    """Core class to manage Fynix Systems manufacturing issues and provide analysis.
 
     The assistant stores issues internally in a pandas DataFrame.  For
     persistence across sessions, call :meth:`load_data` and
     :meth:`save_data` with a CSV or Excel file.  Each issue is
     represented by the :class:`Issue` dataclass and stored in the
-    ``_issues`` dictionary keyed by description.  Duplicate
+    ``_issues`` dictionary keyed by issue_id.  Duplicate
     descriptions are allowed but issue identifiers are unique.
+
+    This assistant is specifically designed for Fynix Systems operations
+    management and continuous improvement initiatives.
     """
 
     def __init__(self) -> None:
@@ -419,8 +424,10 @@ class OpsAssistant:
             pdf = FPDF()
             pdf.set_auto_page_break(auto=True, margin=15)
             pdf.add_page()
+            pdf.set_font("Arial", "B", 16)
+            pdf.cell(0, 10, "Fynix Systems", ln=True, align='C')
             pdf.set_font("Arial", "B", 14)
-            pdf.cell(0, 10, f"Manufacturing Issue Report: {start_date} to {end_date}", ln=True)
+            pdf.cell(0, 10, f"Operations Issue Report: {start_date} to {end_date}", ln=True, align='C')
             pdf.set_font("Arial", size=10)
             # Overview
             pdf.ln(4)
@@ -485,7 +492,8 @@ class OpsAssistant:
                     nonlocal y
                     ax.text(0.05, y, text, fontsize=size, fontweight=weight, transform=ax.transAxes)
                     y -= dy
-                write_line(f"Manufacturing Issue Report: {start_date} to {end_date}", size=14, weight='bold', dy=0.05)
+                write_line("Fynix Systems", size=16, weight='bold', dy=0.06)
+                write_line(f"Operations Issue Report: {start_date} to {end_date}", size=14, weight='bold', dy=0.05)
                 write_line("\nOverview", size=12, weight='bold', dy=0.05)
                 write_line(f"Total issues: {total_issues}")
                 write_line(f"Closed: {closed_count} ({gain_percent:.1f}% gain)")
@@ -599,40 +607,40 @@ class OpsAssistant:
 
 
 def demo() -> None:
-    """Small demonstration of the OpsAssistant capabilities.
+    """Small demonstration of the Fynix Systems OpsAssistant capabilities.
 
     Run this function directly to see how to create a few issues,
     conduct root cause analysis, visualise a fishbone diagram and
     generate a PDF report.  The demonstration uses synthetic data to
-    illustrate the workflow.  The resulting report and diagram are
-    saved into the current working directory.
+    illustrate the workflow for Fynix Systems operations.  The resulting
+    report and diagram are saved into the current working directory.
     """
     assistant = OpsAssistant()
-    # Add a few issues
-    i1 = assistant.add_issue("Gearbox vibration detected", category="Machine", date_raised=_dt.date.today() - _dt.timedelta(days=3))
-    i2 = assistant.add_issue("Oil leakage in hydraulic press", category="Material", date_raised=_dt.date.today() - _dt.timedelta(days=2))
-    i3 = assistant.add_issue("Operator forgot to torque bolts", category="Man", date_raised=_dt.date.today() - _dt.timedelta(days=1))
+    # Add a few Fynix Systems production issues
+    i1 = assistant.add_issue("Hydraulic pressure fluctuation in Station 3", category="Machine", date_raised=_dt.date.today() - _dt.timedelta(days=3))
+    i2 = assistant.add_issue("Quality defect in powder coating line", category="Material", date_raised=_dt.date.today() - _dt.timedelta(days=2))
+    i3 = assistant.add_issue("Assembly sequence error on Line 2", category="Method", date_raised=_dt.date.today() - _dt.timedelta(days=1))
     # Conduct 5‑Whys for issue 1
-    assistant.ask_why(i1, "Why was there vibration?", "Bearings were worn")
-    assistant.ask_why(i1, "Why were the bearings worn?", "Lubrication schedule was missed")
-    assistant.ask_why(i1, "Why was the schedule missed?", "Maintenance crew understaffed")
+    assistant.ask_why(i1, "Why is pressure fluctuating?", "Worn seal in valve assembly")
+    assistant.ask_why(i1, "Why is the seal worn?", "Exceeded service interval")
+    assistant.ask_why(i1, "Why was service interval exceeded?", "Maintenance schedule not updated after equipment upgrade")
     assistant.finalize_root_cause(i1)
-    assistant.add_corrective_action(i1, "Revise lubrication schedule and allocate staff")
+    assistant.add_corrective_action(i1, "Update maintenance schedule and implement automated tracking system")
     assistant.update_status(i1, "Closed")
     # Conduct 5‑Whys for issue 2
-    assistant.ask_why(i2, "Why was there leakage?", "Seal failure")
-    assistant.ask_why(i2, "Why did the seal fail?", "Incorrect installation")
+    assistant.ask_why(i2, "Why is coating quality degraded?", "Powder particle size inconsistent")
+    assistant.ask_why(i2, "Why is particle size inconsistent?", "Supplier changed manufacturing process")
     assistant.finalize_root_cause(i2)
-    assistant.add_corrective_action(i2, "Train team on proper seal installation")
+    assistant.add_corrective_action(i2, "Implement incoming material inspection and supplier quality agreement")
     # Leave issue 2 open
     # Issue 3 without root cause yet
     # Visualise fishbone for issue 1
-    fig_path = assistant.draw_fishbone(i1, filename="demo_fishbone.png")
-    print(f"Fishbone diagram saved to {fig_path}")
+    fig_path = assistant.draw_fishbone(i1, filename="fynix_demo_fishbone.png")
+    print(f"Fynix Systems fishbone diagram saved to {fig_path}")
     # Generate report
-    report_path = "demo_report.pdf"
+    report_path = "fynix_demo_report.pdf"
     assistant.generate_report(report_path)
-    print(f"Report saved to {report_path}")
+    print(f"Fynix Systems report saved to {report_path}")
 
 
 if __name__ == "__main__":
