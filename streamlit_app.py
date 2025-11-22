@@ -63,19 +63,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Initialize session state
-if 'dashboard' not in st.session_state:
-    st.session_state.dashboard = create_standard_kpis()
-
-if 'ops_manager' not in st.session_state:
-    st.session_state.ops_manager = OperationalManager()
-
-if 'initialized' not in st.session_state:
-    # Add some demo data
-    _init_demo_data()
-    st.session_state.initialized = True
-
-
 def _init_demo_data():
     """Initialize with demo data for demonstration."""
     dashboard = st.session_state.dashboard
@@ -129,6 +116,19 @@ def _init_demo_data():
     ops.create_workflow("sales_001", "deal_acme", 21, Priority.HIGH, "Acme Corp", "Warehouse Automation")
     ops.create_workflow("sales_001", "deal_initech", 21, Priority.MEDIUM, "Initech Inc", "Process Automation")
     ops.create_workflow("delivery_001", "proj_warehouse", 75, Priority.CRITICAL, "Acme Corp", "Warehouse System")
+
+
+# Initialize session state
+if 'dashboard' not in st.session_state:
+    st.session_state.dashboard = create_standard_kpis()
+
+if 'ops_manager' not in st.session_state:
+    st.session_state.ops_manager = OperationalManager()
+
+if 'initialized' not in st.session_state:
+    # Add some demo data
+    _init_demo_data()
+    st.session_state.initialized = True
 
 
 def render_sidebar():
