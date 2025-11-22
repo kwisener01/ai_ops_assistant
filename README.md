@@ -35,13 +35,15 @@ streamlit run streamlit_app.py
 1. [Features](#features)
 2. [Installation](#installation)
 3. [Quick Start](#quick-start)
-4. [System Components](#system-components)
-5. [Usage Examples](#usage-examples)
-6. [Business Procedures](#business-procedures)
-7. [KPI Reference](#kpi-reference)
-8. [Architecture](#architecture)
-9. [Contributing](#contributing)
-10. [Support](#support)
+4. [Web Dashboard](#web-dashboard)
+5. [Deployment](#deployment)
+6. [System Components](#system-components)
+7. [Usage Examples](#usage-examples)
+8. [Business Procedures](#business-procedures)
+9. [KPI Reference](#kpi-reference)
+10. [Architecture](#architecture)
+11. [Contributing](#contributing)
+12. [Support](#support)
 
 ---
 
@@ -56,6 +58,17 @@ Track and monitor key performance indicators across five categories:
 - **Project Metrics**: On-time delivery, success rate, team utilization
 - **Team Metrics**: Productivity, capacity, efficiency
 - **Operational Metrics**: Response time, uptime, automation rate
+
+### 🌐 Interactive Web Dashboard
+
+Full-featured Streamlit web application with:
+
+- **Real-time KPI Dashboard** - Visual overview of all business metrics
+- **Interactive Charts** - Plotly-powered visualizations with zoom, pan, and filters
+- **Data Entry Forms** - Easy input for metrics and workflows
+- **Workflow Tracking** - Monitor active workflows with progress indicators
+- **Analytics Reports** - Comprehensive business intelligence
+- **CSV Export** - Download data for external analysis
 
 ### 📋 Standard Operating Procedures
 
@@ -252,6 +265,75 @@ assistant.generate_report("issue_report.pdf")
 
 ---
 
+## Web Dashboard
+
+### Overview
+
+The **Streamlit web dashboard** (`streamlit_app.py`) provides a complete business intelligence interface with five main sections:
+
+#### 🏠 Dashboard
+- Key metrics overview (MRR, clients, delivery rate, active workflows)
+- Revenue trend charts (6-month historical view)
+- Client growth visualization
+- KPI performance alerts
+
+#### 📊 KPI Tracking
+- **Revenue Tab**: Track MRR, ARR, growth rate with trend analysis
+- **Clients Tab**: Monitor retention, CSAT, NPS with historical data
+- **Projects Tab**: View delivery metrics and team utilization
+- **Operations Tab**: Comprehensive KPI table with export
+
+#### 🔄 Workflows
+- **Active Workflows**: Real-time progress tracking with status indicators
+- **Create Workflow**: Form-based workflow creation from SOPs
+- **Reports**: Operational efficiency with priority breakdowns
+
+#### 📈 Analytics
+- KPI summary with performance ratios
+- Underperforming metrics identification
+- Data export for further analysis
+
+#### ⚙️ Settings
+- System configuration
+- Demo data management
+- Future customization options
+
+### Features
+
+- **Interactive Visualizations**: Powered by Plotly with zoom, pan, and hover tooltips
+- **Responsive Design**: Professional UI with Fynix Systems branding
+- **Demo Mode**: Pre-loaded with 6 months of sample data
+- **Real-time Updates**: Charts and metrics update as you enter data
+- **Export Capabilities**: Download KPI data as CSV
+
+---
+
+## Deployment
+
+### Deploy to Streamlit Cloud
+
+1. **Visit** https://share.streamlit.io/ and sign in with GitHub
+2. **Click** "New app"
+3. **Configure:**
+   - Repository: `kwisener01/ai_ops_assistant`
+   - Branch: `main` (or your branch)
+   - Main file: `streamlit_app.py`
+   - App URL: `work-assist` (or custom name)
+4. **Click** "Deploy!"
+
+Your app will be live at: **https://work-assist.streamlit.app/**
+
+### Detailed Instructions
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for:
+- Complete deployment guide
+- Environment configuration
+- Custom domain setup
+- Troubleshooting tips
+- Best practices
+
+---
+
 ## System Components
 
 ### 1. `business_kpis.py` - KPI Tracking System
@@ -285,7 +367,16 @@ assistant.generate_report("issue_report.pdf")
 - `get_overdue_workflows()` - Identify delayed workflows
 - `generate_operational_report()` - Operational efficiency report
 
-### 3. `ai_ops_assistant.py` - Issue Tracking (Legacy)
+### 3. `streamlit_app.py` - Web Dashboard
+
+**Main Interface:**
+- Interactive web application built with Streamlit
+- Five-page navigation (Dashboard, KPIs, Workflows, Analytics, Settings)
+- Real-time data visualization with Plotly charts
+- Form-based data entry with validation
+- Demo data for testing and demonstration
+
+### 4. `ai_ops_assistant.py` - Issue Tracking (Legacy)
 
 **Classes:**
 - `Issue` - Quality/downtime issue
@@ -297,6 +388,14 @@ assistant.generate_report("issue_report.pdf")
 - `finalize_root_cause()` - Set root cause
 - `draw_fishbone()` - Generate Ishikawa diagram
 - `generate_report()` - Create PDF report
+
+### 5. `demo_business_system.py` - CLI Demo
+
+**Demonstrations:**
+- KPI tracking example
+- Workflow management example
+- Integrated business operations example
+- Command-line interface for testing
 
 ---
 
@@ -510,8 +609,10 @@ We welcome contributions! Here's how to get started:
 ### Documentation
 
 - **Business Procedures:** See [BUSINESS_PROCEDURES.md](BUSINESS_PROCEDURES.md)
+- **Deployment Guide:** See [DEPLOYMENT.md](DEPLOYMENT.md)
 - **API Reference:** See inline docstrings in each module
 - **Examples:** See [Usage Examples](#usage-examples) section
+- **Web Dashboard:** See [Web Dashboard](#web-dashboard) section
 
 ### Contact
 
